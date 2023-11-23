@@ -37,6 +37,22 @@ class Document {
       throw const FormatException('Unexpected JSON');
     }
   }
+
+  // ignore: slash_for_doc_comments
+  /**
+   * getBlocks() 函数会返回 Block 对象列表，您稍后将使用这些对象来构建界面。熟悉的 if-case 语句会执行验证，
+   * 并将 blocks 元数据的值转换为名为 blocksJson 的新 List（如果没有模式，则需要使用 toList() 方法进行转换）。
+      列表文字包含一个集合，以便用 Block 对象填充新列表。
+   */
+  List<Block> getBlocks() {
+    if (_json case {'blocks': List blocksJson}) {
+      return <Block>[
+        for (var blockJson in blocksJson) Block.fromJson(blockJson)
+      ];
+    } else {
+      throw const FormatException('Unexpected JSON format');
+    }
+  }
 }
 
 const documentJson = '''
@@ -76,25 +92,10 @@ class Block {
       throw const FormatException('Unexpected JSON format');
     }
   }
-}
 
-class Blocks {
-  final Map<String, Object?> _json;
-
-  Blocks() : _json = jsonDecode(documentJson);
-
-  List<Block> getBlocks() {
-    if (_json case {'blocks': List blocksJson}) {
-      return <Block>[
-        for (var blockJson in blocksJson) Block.fromJson(blockJson)
-      ];
-    } else {
-      throw const FormatException('Unexpected JSON format');
-    }
+  @override
+  String toString() {
+    return '{type: $type, text: $text}';
   }
 }
 
-void main() {
-  var blocks = Blocks().getBlocks();
-   print(blocks);
-}
