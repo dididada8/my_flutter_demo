@@ -34,6 +34,35 @@ class BlockWidget extends StatelessWidget {
   }
 }
 
+class Block2Widget extends StatelessWidget {
+  final Block2 block;
+
+  const Block2Widget({
+    required this.block,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      child: switch (block) {
+        HeaderBlock(:var text) => Text(
+            text,
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
+        ParagraphBlock(:var text) => Text(text),
+        CheckboxBlock(:var text, :var isChecked) => Row(
+            children: [
+              Checkbox(value: isChecked, onChanged: (_) {}),
+              Text(text),
+            ],
+          ),
+      },
+    );
+  }
+}
+
 /**
  * 此方法会返回一个 switch 表达式，该表达式可打开值 difference（一个 Duration 对象）。它表示 today 与 JSON 数据中的 modified 值之间的时间跨度。
     switch 表达式的每个 case 语句都使用一个对象模式，该模式通过在对象的属性 inDays 和 isNegative 上调用 getter 来进行匹配。语法看起来像是在构建一个 Duration 对象，但它实际上是访问 difference 对象的字段。
@@ -87,8 +116,14 @@ class DocumentScreenDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var (title, :modified) = document.getMetadata();
-    var blocks = document.getBlocks(); // New
+    var (title2, :modified2) = document.getMetadata2();
+    var (title3, :modified3) = document.getMetadata3();
     var formattedModifiedDate = formatDate(modified); // New
+    var formattedModifiedDate2 = formatDate(modified2); // New
+    var formattedModifiedDate3 = formatDate_2(modified3); // New
+
+    var blocks = document.getBlocks(); // New
+    var blocks2 = document.getBlocks2(); // New
 
     return Scaffold(
       appBar: AppBar(
@@ -98,6 +133,18 @@ class DocumentScreenDemo extends StatelessWidget {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text('Last modified $formattedModifiedDate'),
         const SizedBox(height: 20),
+        Text('Last modified2 $formattedModifiedDate2'),
+        const SizedBox(height: 20),
+        Text('Last modified3 $formattedModifiedDate3'),
+        const SizedBox(height: 20),
+        Expanded(
+          child: ListView.builder(
+            itemCount: blocks2.length,
+            itemBuilder: (context, index) {
+              return Block2Widget(block: blocks2[index]);
+            },
+          ),
+        ),
         Expanded(
           child: ListView.builder(
             itemCount: blocks.length,

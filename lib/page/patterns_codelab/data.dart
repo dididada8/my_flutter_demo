@@ -53,6 +53,16 @@ class Document {
       throw const FormatException('Unexpected JSON format');
     }
   }
+
+  List<Block2> getBlocks2() {
+    if (_json case {'blocks': List blocksJson}) {
+      return <Block2>[
+        for (var blockJson in blocksJson) Block2.fromJson(blockJson)
+      ];
+    } else {
+      throw const FormatException('Unexpected JSON format');
+    }
+  }
 }
 
 const documentJson = '''
@@ -72,7 +82,7 @@ const documentJson = '''
     },
     {
       "type": "checkbox",
-      "checked": false,
+      "checked": true,
       "text": "Learn Dart 3"
     }
   ]
@@ -99,3 +109,35 @@ class Block {
   }
 }
 
+class HeaderBlock extends Block2 {
+  final String text;
+
+  HeaderBlock(this.text);
+}
+
+class ParagraphBlock extends Block2 {
+  final String text;
+
+  ParagraphBlock(this.text);
+}
+
+class CheckboxBlock extends Block2 {
+  final String text;
+  final bool isChecked;
+
+  CheckboxBlock(this.text, this.isChecked);
+}
+
+sealed class Block2 {
+  Block2();
+
+  factory Block2.fromJson(Map<String, Object?> json) {
+    return switch (json) {
+      {'type': 'h1', 'text': String text} => HeaderBlock(text),
+      {'type': 'p', 'text': String text} => ParagraphBlock(text),
+      {'type': 'checkbox', 'text': String text, 'checked': bool checked} =>
+        CheckboxBlock(text, checked),
+      _ => throw const FormatException('Unexpected JSON format'),
+    };
+  }
+}
