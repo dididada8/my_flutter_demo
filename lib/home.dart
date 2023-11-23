@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_demo/page/Page2.dart';
 import 'package:my_flutter_demo/page/http_demo/delete_demo.dart';
 import 'package:my_flutter_demo/page/http_demo/post_demo.dart';
 import 'package:my_flutter_demo/page/http_demo/put_demo.dart';
 import 'package:my_flutter_demo/page/http_demo/web_socket_demo.dart';
-import 'package:my_flutter_demo/page/json_serializable/remote_photo/FetchJsonDemo.dart';
-import 'package:my_flutter_demo/page/patterns_codelab/DocumentScreenDemo.dart';
-import 'package:my_flutter_demo/page/persist/LocalStorageDemo.dart';
-import 'package:my_flutter_demo/page/persist/SharedPreferencesDemo.dart';
+import 'package:my_flutter_demo/page/json_serializable/remote_photo/fetch_json_demo.dart';
+import 'package:my_flutter_demo/page/patterns_codelab/document_screen_demo.dart';
+import 'package:my_flutter_demo/page/persist/local_storage_demo.dart';
+import 'package:my_flutter_demo/page/persist/shared_preferences_demo.dart';
 import 'package:my_flutter_demo/router/router.dart';
 
 import 'page/http_demo/get_demo.dart';
@@ -84,6 +83,13 @@ class Home extends StatelessWidget {
                 Navigator.of(context).push(createRoute(DocumentScreenDemo()));
               },
               child: const Text('Link To Document Screen Demo'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/layout');
+              },
+              child: const Text('Go Layout Demo'),
             ),
           ],
         ),
