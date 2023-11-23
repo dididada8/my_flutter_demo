@@ -62,3 +62,39 @@ const documentJson = '''
   ]
 }
 ''';
+
+class Block {
+  final String type;
+  final String text;
+
+  Block({required this.type, required this.text});
+
+  factory Block.fromJson(Map<String, dynamic> json) {
+    if (json case {'type': var type, 'text': var text}) {
+      return Block(type: type, text: text);
+    } else {
+      throw const FormatException('Unexpected JSON format');
+    }
+  }
+}
+
+class Blocks {
+  final Map<String, Object?> _json;
+
+  Blocks() : _json = jsonDecode(documentJson);
+
+  List<Block> getBlocks() {
+    if (_json case {'blocks': List blocksJson}) {
+      return <Block>[
+        for (var blockJson in blocksJson) Block.fromJson(blockJson)
+      ];
+    } else {
+      throw const FormatException('Unexpected JSON format');
+    }
+  }
+}
+
+void main() {
+  var blocks = Blocks().getBlocks();
+   print(blocks);
+}
