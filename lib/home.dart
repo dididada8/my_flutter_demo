@@ -20,16 +20,8 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child:ListView(
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(createRoute(const Page2()));
-              },
-              child: const Text('Link To Page 2'),
-            ),
-            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(createRoute(const HttpGetDemo()));
