@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_flutter_demo/router/router.dart';
 
 import 'navigation/drawer_example.dart';
+import 'navigation/navigation_drawer_example.dart';
 import 'scroll/horizons_demo_app.dart';
 
 class LayoutHome extends StatelessWidget {
@@ -29,6 +30,18 @@ class LayoutHome extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const DrawerExampleDemo()),
+                );
+              },
+              child: const Text('Link To Drawer Demo'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NavigationDrawerDemo()),
                 );
               },
               child: const Text('Link To Navigation Drawer Demo'),
