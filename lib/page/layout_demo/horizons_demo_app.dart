@@ -21,7 +21,8 @@ class HorizonsDemoApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Horizons'),
           backgroundColor: Colors.teal[800],
-          actions: <Widget>[
+
+          /*actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.arrow_back),
               tooltip: 'Back',
@@ -29,7 +30,29 @@ class HorizonsDemoApp extends StatelessWidget {
                 Navigator.pushNamed(context, '/layout');
               }
             )
-          ],
+          ],*/
+        ),
+        drawer: Drawer(
+         child: ListView(
+           padding: EdgeInsets.zero,
+            children: <Widget>[
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.teal,
+                ),
+                child: Text('Drawer Header',
+                  style: TextStyle(color: Colors.white, fontSize: 24)
+                ),
+              ),
+              ListTile(
+                leading:  const Icon(Icons.arrow_back),
+                title: const Text('Back'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/layout');
+                },
+              ),
+            ],
+         ),
         ),
         body: const WeeklyForecastList(),
       ),
