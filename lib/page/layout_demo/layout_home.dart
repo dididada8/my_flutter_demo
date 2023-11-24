@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_demo/router/router.dart';
 
-import 'navigation/navigation_drawer.dart';
+import 'navigation/drawer_example.dart';
 import 'scroll/horizons_demo_app.dart';
 
 class LayoutHome extends StatelessWidget {
@@ -27,7 +27,7 @@ class LayoutHome extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context)
-                    .push(createRoute(const NavigationDrawerDemo()));
+                    .push(createRoute(const DrawerExampleDemo()));
               },
               child: const Text('Link To Navigation Drawer Demo'),
             )
