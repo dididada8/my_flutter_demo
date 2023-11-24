@@ -21,16 +21,6 @@ class HorizonsDemoApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Horizons'),
           backgroundColor: Colors.teal[800],
-
-          /*actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.arrow_back),
-              tooltip: 'Back',
-              onPressed: () {
-                Navigator.pushNamed(context, '/layout');
-              }
-            )
-          ],*/
         ),
         drawer: Drawer(
          child: ListView(
@@ -44,7 +34,9 @@ class HorizonsDemoApp extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 24)
                 ),
               ),
+
               ListTile(
+
                 leading:  const Icon(Icons.arrow_back),
                 title: const Text('Back'),
                 onTap: () {

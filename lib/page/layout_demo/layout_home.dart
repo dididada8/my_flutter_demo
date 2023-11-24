@@ -26,12 +26,30 @@ class LayoutHome extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(createRoute(const DrawerExampleDemo()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DrawerExampleDemo()),
+                );
               },
               child: const Text('Link To Navigation Drawer Demo'),
             )
           ],
         )));
+  }
+}
+
+
+class BackButtonWidget extends StatelessWidget {
+  const BackButtonWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    return IconButton(
+      onPressed: () {
+        Navigator.pushNamed(context, '/layout');
+      },
+      icon: const Icon(Icons.arrow_back),
+    );
   }
 }

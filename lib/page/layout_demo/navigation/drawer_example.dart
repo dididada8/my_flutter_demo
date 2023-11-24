@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+
 class DrawerExampleDemo extends StatelessWidget {
   const DrawerExampleDemo({Key? key}) : super(key: key);
 
@@ -7,26 +9,38 @@ class DrawerExampleDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
-      home: const DrawerExample(),
+      home:  DrawerExample(outerBuildContext: context),
     );
   }
 }
 
 class DrawerExample extends StatefulWidget {
-  const DrawerExample({Key? key}) : super(key: key);
+  final BuildContext outerBuildContext;
+  const DrawerExample({Key? key, required this.outerBuildContext}) : super(key: key);
 
   @override
-  State<DrawerExample> createState() => _DrawerExampleState();
+  State<DrawerExample> createState() => _DrawerExampleState(outerBuildContext);
 }
 
 class _DrawerExampleState extends State<DrawerExample> {
   var selectedPage = '';
+  final BuildContext outerBuildContext ;
+
+  _DrawerExampleState(this.outerBuildContext);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Drawer Example'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(outerBuildContext, '/layout');
+            },
+            icon: const Icon(Icons.arrow_back),
+          )
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -44,6 +58,7 @@ class _DrawerExampleState extends State<DrawerExample> {
               ),
             ),
             ListTile(
+              leading: const Icon(Icons.message),
               title: const Text('Messages'),
               onTap: () {
                 setState(() {
@@ -53,6 +68,7 @@ class _DrawerExampleState extends State<DrawerExample> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.account_circle),
               title: const Text('Profile'),
               onTap: () {
                 setState(() {
@@ -62,6 +78,7 @@ class _DrawerExampleState extends State<DrawerExample> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
                 setState(() {
@@ -81,5 +98,4 @@ class _DrawerExampleState extends State<DrawerExample> {
       ),
     );
   }
-
 }
