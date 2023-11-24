@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-class HorizonsDemoApp extends StatelessWidget {
-  const HorizonsDemoApp({super.key});
+class HorizonsStepByStepDemoApp extends StatelessWidget {
+  const HorizonsStepByStepDemoApp({super.key});
 
   // This widget is the root of your application.
   @override
