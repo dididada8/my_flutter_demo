@@ -5,6 +5,7 @@ import 'navigation/drawer_example.dart';
 import 'navigation/navigation_drawer_example.dart';
 import 'scroll/horizons_demo_step_by_step_2.dart';
 import 'scroll/horizons_demo_step_by_step_1.dart';
+import 'scroll/horizons_demo_step_by_step_3.dart';
 
 class LayoutHome extends StatelessWidget {
   const LayoutHome({Key? key}) : super(key: key);
@@ -32,6 +33,16 @@ class LayoutHome extends StatelessWidget {
                     .push(createRoute(const HorizonsStepByStepDemo2App()));
               },
               child: const Text('Link To Horizons-Step-By-Step 2 Demo'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(createRoute(const HorizonsStepByStepDemo3App()));
+              },
+              child: const Text('Link To Horizons-Step-By-Step 3 Demo'),
             ),
             const SizedBox(
               height: 10,
