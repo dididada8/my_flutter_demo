@@ -7,6 +7,7 @@ import 'scroll/horizons_demo_step_by_step_2.dart';
 import 'scroll/horizons_demo_step_by_step_1.dart';
 import 'scroll/horizons_demo_step_by_step_3.dart';
 import 'scroll/horizons_demo_step_by_step_4.dart';
+import 'scroll/horizons_demo_step_by_step_5.dart';
 
 class LayoutHome extends StatelessWidget {
   const LayoutHome({Key? key}) : super(key: key);
@@ -54,6 +55,16 @@ class LayoutHome extends StatelessWidget {
                     .push(createRoute(const HorizonsStepByStepDemo4App()));
               },
               child: const Text('Link To Horizons-Step-By-Step 4 Demo'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(createRoute(const HorizonsStepByStepDemo5App()));
+              },
+              child: const Text('Link To Horizons-Step-By-Step 5 Demo'),
             ),
             const SizedBox(
               height: 10,
