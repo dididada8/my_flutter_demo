@@ -19,14 +19,34 @@ class HorizonsStepByStepDemo4App extends StatelessWidget {
       scrollBehavior: const ConstantScrollBehavior(),
       title: 'Horizons Weather',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Horizons 4'),
-          backgroundColor: Colors.teal[800],
-        ),
-        body: const CustomScrollView(
-          // TODO: Add a SliverAppBar
-          slivers: [
-            WeeklyForecastList(),
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              pinned: true,
+              backgroundColor: Colors.teal[800],
+              expandedHeight: 200.0,
+              flexibleSpace: FlexibleSpaceBar(
+                title: const Text('Horizons 4'),
+                background: DecoratedBox(
+                  position: DecorationPosition.foreground,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.center,
+                      colors: <Color>[
+                        Colors.teal[800]!,
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                  child: Image.network(
+                    headerImage,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            const WeeklyForecastList(),
           ],
         ),
       ),
@@ -44,9 +64,9 @@ class WeeklyForecastList extends StatelessWidget {
 
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-            (context, index) {
+        (context, index) {
           final DailyForecast dailyForecast =
-          Server.getDailyForecastByID(index);
+              Server.getDailyForecastByID(index);
           return Card(
             child: Row(
               children: <Widget>[
@@ -127,7 +147,7 @@ const Map<int, DailyForecast> _kDummyData = {
     highTemp: 73,
     lowTemp: 52,
     description:
-    'Partly cloudy in the morning, with sun appearing in the afternoon.',
+        'Partly cloudy in the morning, with sun appearing in the afternoon.',
   ),
   1: DailyForecast(
     id: 1,
@@ -191,6 +211,7 @@ class DailyForecast {
     required this.lowTemp,
     required this.description,
   });
+
   final int id;
   final String imageId;
   final int highTemp;
@@ -221,12 +242,12 @@ class ConstantScrollBehavior extends ScrollBehavior {
 
   @override
   Widget buildScrollbar(
-      BuildContext context, Widget child, ScrollableDetails details) =>
+          BuildContext context, Widget child, ScrollableDetails details) =>
       child;
 
   @override
   Widget buildOverscrollIndicator(
-      BuildContext context, Widget child, ScrollableDetails details) =>
+          BuildContext context, Widget child, ScrollableDetails details) =>
       child;
 
   @override
