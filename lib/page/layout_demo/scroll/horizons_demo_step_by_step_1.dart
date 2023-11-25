@@ -19,7 +19,7 @@ class HorizonsStepByStepDemo1App extends StatelessWidget {
       title: 'Horizons Weather',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Horizons'),
+          title: const Text('Horizons 1 '),
           backgroundColor: Colors.teal[800],
         ),
         drawer: Drawer(

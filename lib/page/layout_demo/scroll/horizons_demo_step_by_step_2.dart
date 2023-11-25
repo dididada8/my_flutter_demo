@@ -22,7 +22,7 @@ class HorizonsStepByStepDemo2App extends StatelessWidget {
       title: 'Horizons Weather',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Horizons'),
+          title: const Text('Horizons 2 '),
           backgroundColor: Colors.teal[800],
         ),
         // TODO: Add a CustomScrollView

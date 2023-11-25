@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HorizonsStepByStepDemo3App extends StatelessWidget {
-  const HorizonsStepByStepDemo3App({super.key});
+class HorizonsStepByStepDemo4App extends StatelessWidget {
+  const HorizonsStepByStepDemo4App({super.key});
 
   // This widget is the root of your application.
   @override
@@ -20,7 +20,7 @@ class HorizonsStepByStepDemo3App extends StatelessWidget {
       title: 'Horizons Weather',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Horizons 3 '),
+          title: const Text('Horizons 4'),
           backgroundColor: Colors.teal[800],
         ),
         body: const CustomScrollView(
