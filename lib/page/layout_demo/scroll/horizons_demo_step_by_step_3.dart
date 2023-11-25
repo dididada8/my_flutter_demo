@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class HorizonsStepByStepDemo3App extends StatelessWidget {
   const HorizonsStepByStepDemo3App({super.key});
 
@@ -26,7 +24,8 @@ class HorizonsStepByStepDemo3App extends StatelessWidget {
           backgroundColor: Colors.teal[800],
         ),
         body: const CustomScrollView(
-          slivers: <Widget>[
+          // TODO: Add a SliverAppBar
+          slivers: [
             WeeklyForecastList(),
           ],
         ),
@@ -44,71 +43,72 @@ class WeeklyForecastList extends StatelessWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return SliverList(
-        delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-            final DailyForecast dailyForecast = Server.getDailyForecastByID(index);
-            return Card(
-              child: Row(
-                children: <Widget>[
-                  SizedBox(
-                    height: 200.0,
-                    width: 200.0,
-                    child: Stack(
-                      fit: StackFit.expand,
+      delegate: SliverChildBuilderDelegate(
+            (context, index) {
+          final DailyForecast dailyForecast =
+          Server.getDailyForecastByID(index);
+          return Card(
+            child: Row(
+              children: <Widget>[
+                SizedBox(
+                  height: 200.0,
+                  width: 200.0,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      DecoratedBox(
+                        position: DecorationPosition.foreground,
+                        decoration: BoxDecoration(
+                          gradient: RadialGradient(
+                            colors: <Color>[
+                              Colors.grey[800]!,
+                              Colors.transparent
+                            ],
+                          ),
+                        ),
+                        child: Image.network(
+                          dailyForecast.imageId,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          dailyForecast.getDate(currentDate.day).toString(),
+                          style: textTheme.displayMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        DecoratedBox(
-                          position: DecorationPosition.foreground,
-                          decoration: BoxDecoration(
-                            gradient: RadialGradient(
-                              colors: <Color>[
-                                Colors.grey[800]!,
-                                Colors.transparent
-                              ],
-                            ),
-                          ),
-                          child: Image.network(
-                            dailyForecast.imageId,
-                            fit: BoxFit.cover,
-                          ),
+                        Text(
+                          dailyForecast.getWeekday(currentDate.weekday),
+                          style: textTheme.headlineMedium,
                         ),
-                        Center(
-                          child: Text(
-                            dailyForecast.getDate(currentDate.day).toString(),
-                            style: textTheme.displayMedium,
-                          ),
-                        ),
+                        const SizedBox(height: 10.0),
+                        Text(dailyForecast.description),
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            dailyForecast.getWeekday(currentDate.weekday),
-                            style: textTheme.headlineMedium,
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(dailyForecast.description),
-                        ],
-                      ),
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    '${dailyForecast.highTemp} | ${dailyForecast.lowTemp} F',
+                    style: textTheme.titleMedium,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      '${dailyForecast.highTemp} | ${dailyForecast.lowTemp} F',
-                      style: textTheme.titleMedium,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-          childCount: 7,
-        )
+                ),
+              ],
+            ),
+          );
+        },
+        childCount: 7,
+      ),
     );
   }
 }
@@ -236,5 +236,3 @@ class ConstantScrollBehavior extends ScrollBehavior {
   ScrollPhysics getScrollPhysics(BuildContext context) =>
       const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
 }
-
-
