@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-class HorizonsStepByStepDemoApp extends StatelessWidget {
-  const HorizonsStepByStepDemoApp({super.key});
+
+
+
+class HorizonsStepByStepDemo2App extends StatelessWidget {
+  const HorizonsStepByStepDemo2App({super.key});
 
   // This widget is the root of your application.
   @override
@@ -22,30 +25,7 @@ class HorizonsStepByStepDemoApp extends StatelessWidget {
           title: const Text('Horizons'),
           backgroundColor: Colors.teal[800],
         ),
-        drawer: Drawer(
-         child: ListView(
-           padding: EdgeInsets.zero,
-            children: <Widget>[
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.teal,
-                ),
-                child: Text('Drawer Header',
-                  style: TextStyle(color: Colors.white, fontSize: 24)
-                ),
-              ),
-
-              ListTile(
-
-                leading:  const Icon(Icons.arrow_back),
-                title: const Text('Back'),
-                onTap: () {
-                  Navigator.pushNamed(context, '/layout');
-                },
-              ),
-            ],
-         ),
-        ),
+        // TODO: Add a CustomScrollView
         body: const WeeklyForecastList(),
       ),
     );
@@ -59,30 +39,72 @@ class WeeklyForecastList extends StatelessWidget {
   Widget build(BuildContext context) {
     final DateTime currentDate = DateTime.now();
     final TextTheme textTheme = Theme.of(context).textTheme;
-    final List<DailyForecast> forecasts = Server.getDailyForecastList();
 
-    return SingleChildScrollView(
-      child: Column(
-        children: forecasts.map((dailyForecast) {
-          return Card(
-            child: ListTile(
-              leading: Text(
-                dailyForecast.getDate(currentDate.day).toString(),
-                style: textTheme.headlineMedium,
+    // TODO: Convert this to a SliverList
+    return ListView.builder(
+      itemCount: 7,
+      itemBuilder: (context, index) {
+        final DailyForecast dailyForecast = Server.getDailyForecastByID(index);
+        return Card(
+          child: Row(
+            children: <Widget>[
+              SizedBox(
+                height: 200.0,
+                width: 200.0,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    DecoratedBox(
+                      position: DecorationPosition.foreground,
+                      decoration: BoxDecoration(
+                        gradient: RadialGradient(
+                          colors: <Color>[
+                            Colors.grey[800]!,
+                            Colors.transparent
+                          ],
+                        ),
+                      ),
+                      child: Image.network(
+                        dailyForecast.imageId,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        dailyForecast.getDate(currentDate.day).toString(),
+                        style: textTheme.displayMedium,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              title: Text(
-                dailyForecast.getWeekday(currentDate.weekday),
-                style: textTheme.headlineSmall,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        dailyForecast.getWeekday(currentDate.weekday),
+                        style: textTheme.headlineMedium,
+                      ),
+                      const SizedBox(height: 10.0),
+                      Text(dailyForecast.description),
+                    ],
+                  ),
+                ),
               ),
-              subtitle: Text(dailyForecast.description),
-              trailing: Text(
-                '${dailyForecast.highTemp} | ${dailyForecast.lowTemp} F',
-                style: textTheme.titleSmall,
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  '${dailyForecast.highTemp} | ${dailyForecast.lowTemp} F',
+                  style: textTheme.titleMedium,
+                ),
               ),
-            ),
-          );
-        }).toList(),
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -165,7 +187,6 @@ class DailyForecast {
     required this.lowTemp,
     required this.description,
   });
-
   final int id;
   final String imageId;
   final int highTemp;
@@ -211,3 +232,5 @@ class ConstantScrollBehavior extends ScrollBehavior {
   ScrollPhysics getScrollPhysics(BuildContext context) =>
       const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
 }
+
+
